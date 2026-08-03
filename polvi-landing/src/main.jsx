@@ -205,7 +205,7 @@ function Hero() {
 
               {/* items-start above so the pill hugs its label instead of stretching
                   to the full column width, which flex-col would otherwise do. */}
-              <PolviAuthCTA className="btn-cta linky" />
+              <PolviAuthCTA className="btn-cta btn-cta--wide linky" />
               <span className="label mute-2">For studios currently in beta.</span>
             </motion.div>
           </div>

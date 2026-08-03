@@ -188,6 +188,12 @@
       box-shadow: 0 0 0 6px rgba(201,163,106,0.12);
     }
 
+    /* Wider variant, used for the hero CTA — the first thing the eye lands on, so
+       it carries more weight than the closing one. min-width rather than extra
+       padding keeps the height and type identical between the two, and max-width
+       stops it overflowing the column on narrow screens. */
+    .btn-cta--wide{ min-width: 300px; max-width: 100%; }
+
     /* secondary — outlined, fills on hover. Used in the nav bar. */
     .btn-nav{
       padding: 9px 18px;
