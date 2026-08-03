@@ -26,7 +26,9 @@ interface PolviAuthCTAProps {
 export function PolviAuthCTA({
   className = '',
   label = 'Try Polvi',
-  arrowClassName = 'arrow gold',
+  // Inherits the button's colour by default — an explicitly gold arrow would be
+  // invisible against the filled gold .btn-cta.
+  arrowClassName = 'arrow',
 }: PolviAuthCTAProps) {
   const { state, hasSession, appDashboardUrl, signUpUrl } = usePolviAuth();
 

@@ -75,7 +75,7 @@ function Nav() {
     <div className={`nav-bar fixed top-0 left-0 right-0 z-50 ${show ? 'show' : ''}`}>
         <div className="max-w-[1440px] mx-auto px-6 md:px-10 h-14 flex items-center justify-between">
           <Wordmark logoSize={30} />
-          <PolviAuthCTA className="linky label label-ink" />
+          <PolviAuthCTA className="btn-nav linky" />
         </div>
       </div>);
 
@@ -933,17 +933,6 @@ function Gallery() {
 /*  CLOSING / REQUEST ACCESS                                           */
 /* ------------------------------------------------------------------ */
 function Closing() {
-  const [email, setEmail] = useState('');
-  const [sent, setSent] = useState(false);
-  const [err, setErr] = useState('');
-
-  const submit = (e) => {
-    e.preventDefault();
-    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    if (!ok) {setErr('Please enter a valid email.');return;}
-    setErr('');setSent(true);
-  };
-
   return (
     <section id="access" className="relative">
         <div className="max-w-[1100px] mx-auto px-6 md:px-10 py-[22vh] text-center">
@@ -957,35 +946,12 @@ function Closing() {
             Polvi- Your work, redefined.
           </p>
 
-          <form onSubmit={submit} className="mt-12 max-w-[520px] mx-auto fade-up">
-            {!sent ?
-          <>
-                <div className="flex items-end gap-4">
-                  <input
-                type="email"
-                placeholder="you@studio.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)} />
-              
-                  <button type="submit" className="serif text-[18px] linky whitespace-nowrap"
-              style={{ color: 'var(--gold)' }}>
-                    Get access  <span className="arrow">→</span>
-                  </button>
-                </div>
-                <div className="label mute-2 mt-3 text-left flex items-center justify-between">
-                  <span>{err || 'One email. No forms. No pitch deck.'}</span>
-                  <span>ONE EMAIL. NO FORMS.</span>
-                </div>
-              </> :
-
-          <div className="text-left border-t hairline pt-6">
-                <div className="serif text-[22px]">Noted.</div>
-                <div className="mute mt-2 text-[15px] leading-[1.55]">
-                  We'll be in touch when a seat opens in your studio's cohort.
-                </div>
-              </div>
-          }
-          </form>
+          {/* Replaced the email-capture form: the CTA now sends people straight to
+              the app, and swaps to "Go to app" for a visitor who is already signed
+              in — same behaviour as the nav. */}
+          <div className="mt-14 flex justify-center fade-up">
+            <PolviAuthCTA className="btn-cta linky" />
+          </div>
         </div>
       </section>);
 

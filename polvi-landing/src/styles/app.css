@@ -89,22 +89,6 @@
       border: 1px solid var(--line);
     }
 
-    /* Input */
-    input[type=email]{
-      background: transparent;
-      border: 0;
-      border-bottom: 1px solid rgba(245,245,244,0.2);
-      color: var(--ink);
-      outline: none;
-      padding: 14px 4px;
-      font-size: 16px;
-      letter-spacing: -0.01em;
-      width: 100%;
-      transition: border-color .2s ease;
-    }
-    input[type=email]:focus{ border-color: var(--gold); }
-    input[type=email]::placeholder{ color: var(--mute-2); }
-
     /* subtle vignette on the page edges */
     .page-vignette{
       background:
@@ -161,3 +145,42 @@
 
     /* large serif italic */
     .ital{ font-style: italic; }
+
+    /* ---- call-to-action buttons ----------------------------------------
+       Defined near the end of the file on purpose: .btn-* set their own colour
+       and type, and must win over the .label rule they sit alongside. */
+
+    .btn-cta, .btn-nav{
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 0.7em;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      text-transform: uppercase;
+      border-radius: 999px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color .3s ease, border-color .3s ease, color .3s ease,
+                  box-shadow .3s ease, transform .15s ease;
+    }
+    .btn-cta:focus-visible, .btn-nav:focus-visible{
+      outline: 2px solid var(--gold-2); outline-offset: 4px;
+    }
+    .btn-cta:active, .btn-nav:active{ transform: translateY(1px); }
+
+    /* primary — solid gold. Reserved for the single action we most want clicked. */
+    .btn-cta{
+      padding: 20px 38px;
+      font-size: 12px; letter-spacing: 0.2em;
+      background: var(--gold); border: 1px solid var(--gold); color: var(--bg);
+    }
+    .btn-cta:hover{
+      background: var(--gold-2); border-color: var(--gold-2);
+      box-shadow: 0 0 0 6px rgba(201,163,106,0.12);
+    }
+
+    /* secondary — outlined, fills on hover. Used in the nav bar. */
+    .btn-nav{
+      padding: 9px 18px;
+      font-size: 11px; letter-spacing: 0.18em;
+      background: transparent; border: 1px solid rgba(201,163,106,0.45); color: var(--gold);
+    }
+    .btn-nav:hover{ background: var(--gold); border-color: var(--gold); color: var(--bg); }
