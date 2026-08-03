@@ -192,7 +192,7 @@
        it carries more weight than the closing one. min-width rather than extra
        padding keeps the height and type identical between the two, and max-width
        stops it overflowing the column on narrow screens. */
-    .btn-cta--wide{ min-width: 300px; max-width: 100%; }
+    .btn-cta--wide{ min-width: 260px; max-width: 100%; }
 
     /* secondary — outlined, fills on hover. Used in the nav bar. */
     .btn-nav{
