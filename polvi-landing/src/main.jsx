@@ -209,13 +209,11 @@ function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 2.2 }}
-            className="mt-10 md:mt-14 flex flex-col gap-3">
-            
-              <a href="https://app.polvi.ai/auth?mode=signup" className="linky inline-flex items-baseline gap-3 serif text-[22px] md:text-[26px] ital"
-            style={{ letterSpacing: '-0.02em', color: 'var(--gold)' }}>
-                <span>Try Polvi</span>
-                <span className="arrow">→</span>
-              </a>
+            className="mt-10 md:mt-14 flex flex-col items-start gap-4">
+
+              {/* items-start above so the pill hugs its label instead of stretching
+                  to the full column width, which flex-col would otherwise do. */}
+              <PolviAuthCTA className="btn-cta linky" />
               <span className="label mute-2">For studios currently in beta.</span>
             </motion.div>
           </div>
