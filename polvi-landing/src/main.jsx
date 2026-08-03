@@ -40,40 +40,24 @@ function useReveal() {
 /*  WORDMARK — original typographic treatment                          */
 /* ------------------------------------------------------------------ */
 function Wordmark({ className = '', logoSize = 48 }) {
-  // The logo PNG has a lot of empty padding around the glyph — we crop it via
-  // a wrapper with overflow hidden + scale the image up so the visible glyph
-  // fills the box. The glyph itself sits in roughly the center ~40% of the PNG.
-  const boxH = logoSize;
-  const boxW = logoSize; // square crop window around the P mark
+  // The asset is cropped to the mark's bounding box (186×258), so no crop window is
+  // needed: it renders at logoSize tall with the width following its aspect ratio.
+  //
+  // It used to be a padded 600×454 image shown through a square overflow-hidden
+  // window with the image scaled 2.8×. That window only revealed ~47% of the image
+  // height while the mark occupies ~57% of it, so the mark was clipped top and
+  // bottom — asymmetrically, since it sits slightly below the image's centre.
   return (
-    <span
-      className={`inline-block ${className}`}
+    <img
+      src={resources.r_polvi_logo_png}
+      alt="Polvi"
+      draggable="false"
+      className={`block ${className}`}
       style={{
-        height: boxH,
-        width: boxW,
-        overflow: 'hidden',
-        position: 'relative'
-      }}>
-      
-      <img
-        src={resources.r_polvi_logo_png}
-        alt="Polvi"
-        draggable="false"
-        style={{
-          position: 'absolute',
-          // Source image: 1475×1115. Glyph is centered, roughly 40% of width/height.
-          // Scale so glyph fills the box: scale factor ≈ 2.5× the box relative to intrinsic.
-          width: boxW * 2.8,
-          maxWidth: 'none',
-          height: 'auto',
-          left: '50%',
-          top: '50%',
-          transform: 'translate(-50%, -50%)',
-          display: 'block',
-          pointerEvents: 'none'
-        }} />
-      
-    </span>);
+        height: logoSize,
+        width: 'auto',
+        pointerEvents: 'none'
+      }} />);
 
 }
 
