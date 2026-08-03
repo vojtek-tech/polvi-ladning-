@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.DS_Store
+
+# polvi-landing/.env IS committed, on purpose: this is a frontend-only build, so the
+# Supabase URL and publishable key it holds are public by definition — they ship in
+# the bundle either way. Committing them keeps local, CI and Vercel builds working
+# with no setup. Row Level Security is the security boundary, not these values.
+#
+# Anything genuinely secret must not live in this build at all — it belongs in a
+# serverless function. Local-only overrides stay out of git:
+.env.local
+.env.*.local

@@ -1,0 +1,33 @@
+{
+  "name": "polvi-landing",
+  "version": "1.0.0",
+  "private": true,
+  "description": "polvi.ai landing page — with cross-domain session detection for app.polvi.ai",
+  "type": "module",
+  "packageManager": "pnpm@10.30.2",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test scripts/test-cross-domain-session.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.4",
+    "framer-motion": "11.11.17",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.2",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "@vitejs/plugin-react": "^6.0.5",
+    "esbuild": "^0.28.1",
+    "typescript": "^5.5.4",
+    "vite": "^8.2.0"
+  }
+}
