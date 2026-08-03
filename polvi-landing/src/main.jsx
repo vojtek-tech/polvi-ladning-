@@ -186,14 +186,6 @@ function Hero() {
         <div className="relative z-10 max-w-[1440px] mx-auto px-6 md:px-10 pt-[28vh] md:pt-[30vh] pb-24 grid grid-cols-12 gap-6 md:gap-10">
           {/* Headline column */}
           <div className="col-span-12 md:col-span-7 lg:col-span-7">
-            <motion.div
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="label mb-8">
-            
-              <span className="mr-3 mute-2">01 —</span> Polvi · Design platform for architects & interior designers
-            </motion.div>
-
             <Headline />
 
             <motion.p
@@ -243,24 +235,6 @@ function Hero() {
           </div>
         </div>
 
-        {/* Scroll hint */}
-        <motion.div
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 2.6 }}
-        className="absolute bottom-6 left-6 md:left-10 label z-10 flex items-center gap-3">
-        
-          <span className="inline-block w-10 h-px bg-[color:var(--mute-2)]" />
-          <span>Scroll</span>
-        </motion.div>
-
-        {/* Bottom tick row */}
-        <motion.div
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 2.5 }}
-        className="absolute bottom-6 right-6 md:right-10 label mute-2 z-10">
-        
-          001 / Hero
-        </motion.div>
       </section>);
 
 }
@@ -268,11 +242,10 @@ function Hero() {
 /* ------------------------------------------------------------------ */
 /*  SECTION HEADER — large serif sentence + number                      */
 /* ------------------------------------------------------------------ */
-function SectionHead({ n, kicker, sentence, body }) {
+function SectionHead({ sentence, body }) {
   return (
     <div className="grid grid-cols-12 gap-6 md:gap-10 mb-14 md:mb-20">
         <div className="col-span-12 md:col-span-5 fade-up">
-          <div className="label mb-6"><span className="mute-2 mr-3">{n}</span>{kicker}</div>
           <h2 className="serif display text-[clamp(34px,5.6vw,84px)]" style={{ lineHeight: 1.02 }}>
             {sentence}
           </h2>
@@ -620,8 +593,6 @@ function FeatureSections() {
         {/* 01 — Train your style */}
         <section className="relative max-w-[1440px] mx-auto px-6 md:px-10 pt-[20vh] pb-[18vh]">
           <SectionHead
-          n="02"
-          kicker="Style DNA"
           sentence={<>Train your <span className="ital gold">style</span> once.</>}
           body="Upload the references that define your taste. Polvi learns the palette, the proportions, the restraint - and carries them into every generation. Your style, applied consistently across every project." />
         
@@ -633,8 +604,6 @@ function FeatureSections() {
         {/* 02 — Concept to client */}
         <section className="relative max-w-[1440px] mx-auto px-6 md:px-10 pt-[18vh] pb-[18vh]">
           <SectionHead
-          n="03"
-          kicker="Concept Pack"
           sentence={<>Concept to client in <span className="ital gold">one flow.</span></>}
           body="From project brief to client-ready PDF, in a single workflow. Six stages - each editable, each your decision. No more stitching together Midjourney, Photoshop, InDesign, and prayer." />
         
@@ -646,8 +615,6 @@ function FeatureSections() {
         {/* 03 — Iterate like you think */}
         <section className="relative max-w-[1440px] mx-auto px-6 md:px-10 pt-[18vh] pb-[20vh]">
           <SectionHead
-          n="04"
-          kicker="Canvas"
           sentence={<>Iterate like you <span className="ital gold">think.</span></>}
           body="The canvas where sketches become renders, renders become variations, and variations become the shot you're actually going to show. Non-linear, visual, and as fast as your attention." />
         
@@ -738,7 +705,6 @@ function Pricing() {
     <section id="pricing" className="relative max-w-[1440px] mx-auto px-6 md:px-10 pt-[18vh] pb-[16vh]">
         <div className="grid grid-cols-12 gap-6 md:gap-10 mb-14 md:mb-20">
           <div className="col-span-12 md:col-span-8 fade-up">
-            <div className="label mb-6"><span className="mute-2 mr-3">05</span>Pricing</div>
             <h2 className="serif display text-[clamp(34px,5.2vw,76px)]" style={{ lineHeight: 1.02 }}>
               Pricing built for how studios <span className="ital gold">actually work.</span>
             </h2>
@@ -846,7 +812,6 @@ function QuickTools() {
     <section id="quick-tools" className="relative max-w-[1440px] mx-auto px-6 md:px-10 pt-[18vh] pb-[18vh]">
         <div className="grid grid-cols-12 gap-6 md:gap-10 mb-14 md:mb-20">
           <div className="col-span-12 md:col-span-7 fade-up">
-            <div className="label mb-6"><span className="mute-2 mr-3">05b</span>Quick Tools</div>
             <h2 className="serif display text-[clamp(34px,5.6vw,84px)]" style={{ lineHeight: 1.02 }}>
               Or just <span className="ital gold">sprint.</span>
             </h2>
@@ -912,7 +877,6 @@ function Gallery() {
     <section className="relative py-[14vh]">
         <div className="max-w-[1440px] mx-auto px-6 md:px-10 mb-10 flex items-baseline justify-between fade-up">
           <span className="serif ital text-[22px] md:text-[28px]">Made with Polvi.</span>
-          <span className="label mute-2">10 recent · studios in beta</span>
         </div>
         <div className="marquee mask-marquee overflow-hidden">
           <div className="marquee-track flex gap-4 w-max">
@@ -934,8 +898,6 @@ function Closing() {
   return (
     <section id="access" className="relative">
         <div className="max-w-[1100px] mx-auto px-6 md:px-10 py-[22vh] text-center">
-          <div className="label mb-8 fade-up"><span className="mute-2 mr-3">05</span> TRY POLVI</div>
-
           <h2 className="serif display fade-up" style={{ fontSize: 'clamp(38px,7.5vw,112px)', lineHeight: 1.0 }}>
             Work that looks like <span className="ital gold">yours.</span>
           </h2>
