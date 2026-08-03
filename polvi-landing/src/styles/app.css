@@ -152,14 +152,24 @@
 
     .btn-cta, .btn-nav{
       display: inline-flex; align-items: center; justify-content: center;
-      gap: 0.7em;
-      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      gap: 0.6em;
+      /* Inter rather than the JetBrains Mono of .label: we self-host mono only at
+         400/500, and 600 is the heaviest real weight available for buttons. Asking
+         for more would just get synthetic bold, which smears at this size. */
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 600;
       text-transform: uppercase;
       border-radius: 999px;
       cursor: pointer;
       white-space: nowrap;
       transition: background-color .3s ease, border-color .3s ease, color .3s ease,
                   box-shadow .3s ease, transform .15s ease;
+    }
+
+    /* Lucide renders width/height attributes; these override them so the icon
+       scales with the button's font-size. */
+    .btn-cta .arrow, .btn-nav .arrow{
+      width: 1.15em; height: 1.15em; flex: none;
     }
     .btn-cta:focus-visible, .btn-nav:focus-visible{
       outline: 2px solid var(--gold-2); outline-offset: 4px;
@@ -170,7 +180,8 @@
     .btn-cta{
       padding: 20px 38px;
       font-size: 12px; letter-spacing: 0.2em;
-      background: var(--gold); border: 1px solid var(--gold); color: var(--bg);
+      /* True black, not var(--bg) (#0A0A0B) — maximum contrast against the gold. */
+      background: var(--gold); border: 1px solid var(--gold); color: #000;
     }
     .btn-cta:hover{
       background: var(--gold-2); border-color: var(--gold-2);
@@ -183,4 +194,4 @@
       font-size: 11px; letter-spacing: 0.18em;
       background: transparent; border: 1px solid rgba(201,163,106,0.45); color: var(--gold);
     }
-    .btn-nav:hover{ background: var(--gold); border-color: var(--gold); color: var(--bg); }
+    .btn-nav:hover{ background: var(--gold); border-color: var(--gold); color: #000; }

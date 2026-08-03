@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { ArrowRight } from 'lucide-react';
 import { polviAuth, type PolviAuthSnapshot } from '../authBridge';
 
 /** Subscribes to the auth bridge and re-renders when the session state settles. */
@@ -32,17 +33,23 @@ export function PolviAuthCTA({
 }: PolviAuthCTAProps) {
   const { state, hasSession, appDashboardUrl, signUpUrl } = usePolviAuth();
 
+  // The icon is decorative — the adjacent text carries the meaning. It is sized in
+  // em by .btn-cta/.btn-nav so it tracks the button's font-size.
+  const arrow = <ArrowRight className={arrowClassName} aria-hidden="true" />;
+
   if (state === 'loading') {
     return (
       <span className={className} style={{ visibility: 'hidden' }} aria-hidden="true">
-        <span>{label}</span> <span className={arrowClassName}>→</span>
+        <span>{label}</span>
+        {arrow}
       </span>
     );
   }
 
   return (
     <a href={hasSession ? appDashboardUrl : signUpUrl} className={className}>
-      <span>{hasSession ? 'Go to app' : label}</span> <span className={arrowClassName}>→</span>
+      <span>{hasSession ? 'Go to app' : label}</span>
+      {arrow}
     </a>
   );
 }
