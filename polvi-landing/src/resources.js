@@ -13,6 +13,7 @@ import r_cp_04_visuals_png from './assets/img/cp_04_visuals.jpg';
 import r_cp_05_diagrams_png from './assets/img/cp_05_diagrams.jpg';
 import r_cp_06_clientpdf_png from './assets/img/cp_06_clientpdf.jpg';
 import r_exterior_jpg from './assets/img/exterior.jpg';
+import r_hero_still_jpg from './assets/img/hero_still.jpg';
 import r_interior_1_png from './assets/img/interior_1.jpg';
 import r_interior_2_png from './assets/img/interior_2.jpg';
 import r_interior_3_jpg from './assets/img/interior_3.jpg';
@@ -22,6 +23,18 @@ import r_polvi_logo_png from './assets/img/polvi_logo.png';
 import r_render_png from './assets/img/render.jpg';
 import r_sketch_png from './assets/img/sketch.jpg';
 import r_sketch_to_visual_png from './assets/img/sketch_to_visual.jpg';
+import r_tool_axonometric_view_jpg from './assets/img/tool_axonometric_view.jpg';
+import r_tool_different_angles_jpg from './assets/img/tool_different_angles.jpg';
+import r_tool_exploded_view_jpg from './assets/img/tool_exploded_view.jpg';
+import r_tool_image_elevation_jpg from './assets/img/tool_image_elevation.jpg';
+import r_tool_image_variations_jpg from './assets/img/tool_image_variations.jpg';
+import r_tool_lighting_mood_jpg from './assets/img/tool_lighting_mood.jpg';
+import r_tool_moodboard_visual_jpg from './assets/img/tool_moodboard_visual.jpg';
+import r_tool_plan_visual_jpg from './assets/img/tool_plan_visual.jpg';
+import r_tool_reference_visual_jpg from './assets/img/tool_reference_visual.jpg';
+import r_tool_render_linedrawing_jpg from './assets/img/tool_render_linedrawing.jpg';
+import r_tool_sketch_visual_jpg from './assets/img/tool_sketch_visual.jpg';
+import r_tool_upscale_enhance_jpg from './assets/img/tool_upscale_enhance.jpg';
 import r_villa_png from './assets/img/villa.jpg';
 import r_vis_01_png from './assets/img/vis_01.jpg';
 import r_vis_02_png from './assets/img/vis_02.jpg';
@@ -57,6 +70,7 @@ export const resources = {
   r_cp_05_diagrams_png,
   r_cp_06_clientpdf_png,
   r_exterior_jpg,
+  r_hero_still_jpg,
   r_interior_1_png,
   r_interior_2_png,
   r_interior_3_jpg,
@@ -66,6 +80,18 @@ export const resources = {
   r_render_png,
   r_sketch_png,
   r_sketch_to_visual_png,
+  r_tool_axonometric_view_jpg,
+  r_tool_different_angles_jpg,
+  r_tool_exploded_view_jpg,
+  r_tool_image_elevation_jpg,
+  r_tool_image_variations_jpg,
+  r_tool_lighting_mood_jpg,
+  r_tool_moodboard_visual_jpg,
+  r_tool_plan_visual_jpg,
+  r_tool_reference_visual_jpg,
+  r_tool_render_linedrawing_jpg,
+  r_tool_sketch_visual_jpg,
+  r_tool_upscale_enhance_jpg,
   r_villa_png,
   r_vis_01_png,
   r_vis_02_png,

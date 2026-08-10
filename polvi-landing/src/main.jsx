@@ -130,7 +130,6 @@ function Headline() {
 /*  HERO MEDIA — the mp4 screen, softly masked                         */
 /* ------------------------------------------------------------------ */
 function HeroMedia() {
-  const videoRef = useRef(null);
   const [on, setOn] = useState(false);
   useEffect(() => {
     const t = setTimeout(() => setOn(true), 850);
@@ -139,13 +138,11 @@ function HeroMedia() {
   return (
     <div className="relative w-full h-full">
         <div className={`resolve ${on ? 'on' : ''} absolute inset-0 mask-soft`}>
-          <video
-          ref={videoRef}
+          <img
           className="w-full h-full object-cover"
-          poster={resources.r_interior_1_png}
-          style={{ display: 'none' }} />
-        <img src={resources.r_interior_1_png} alt="" className="w-full h-full object-cover" />
-        
+          src={resources.r_hero_still_jpg}
+          alt="" />
+
         </div>
         {/* warm glow behind */}
         <div
@@ -174,7 +171,7 @@ function Hero() {
               <Wordmark logoSize={48} />
             </div>
             <div className="hidden md:flex items-center gap-6">
-              <span className="label"><span className="dot mr-2 align-middle" style={{ background: '#C9A36A' }} /> Private beta · S/S 26</span>
+              <span className="label"><span className="dot mr-2 align-middle" style={{ background: '#C9A36A' }} /> BETA · S/S 26</span>
             </div>
             <div className="md:hidden">
               <span className="label">Beta</span>
@@ -206,7 +203,6 @@ function Hero() {
               {/* items-start above so the pill hugs its label instead of stretching
                   to the full column width, which flex-col would otherwise do. */}
               <PolviAuthCTA className="btn-cta btn-cta--wide linky" />
-              <span className="label mute-2">For studios currently in beta.</span>
             </motion.div>
           </div>
 
@@ -222,7 +218,7 @@ function Hero() {
               className="absolute -bottom-10 left-6 right-6 flex items-center justify-between label">
               
                 <span>· Live canvas</span>
-                <span className="mute-2">36°N 2°W / interior · pavilion</span>
+                <span className="mute-2">36°N 2°W / INTERIOR · COUNTRYSIDE</span>
               </motion.div>
             </div>
           </div>
@@ -632,10 +628,26 @@ function FeatureSections() {
 function Pricing() {
   const tiers = [
   {
+    name: 'Free',
+    tag: 'GET STARTED',
+    for: 'Explore Polvi with no commitment',
+    price: '$0',
+    per: '/ month',
+    features: [
+    'Free generations, watermarked',
+    '1 Style DNA',
+    'Gallery and Canvas access',
+    'Personal-use license'],
+
+    cta: 'Start for free',
+    href: '#access',
+    highlight: false
+  },
+  {
     name: 'Basic',
     tag: 'IDEAL FOR STUDENTS',
     for: 'For students and first-year academic projects',
-    price: '€9',
+    price: '$9',
     per: '/ month',
     features: [
     'Unlimited generations at 1K resolution',
@@ -644,7 +656,7 @@ function Pricing() {
     'Academic-use license',
     'Polvi watermark on exports'],
 
-    cta: 'Get started',
+    cta: 'Start 30-day trial',
     href: '#access',
     highlight: false
   },
@@ -652,7 +664,7 @@ function Pricing() {
     name: 'Pro',
     tag: 'MOST POPULAR',
     for: 'For independent architects and interior designers',
-    price: '€15',
+    price: '$15',
     per: '/ month',
     features: [
     'Everything in Basic',
@@ -662,14 +674,14 @@ function Pricing() {
     'No watermark',
     'Email support'],
 
-    cta: 'Start 7-day trial',
+    cta: 'Start 30-day trial',
     href: '#access',
     highlight: true
   },
   {
     name: 'Studio',
     for: 'For small studios and design practices',
-    price: '€59',
+    price: '$59',
     per: '/ month',
     features: [
     'Everything in Pro',
@@ -679,7 +691,7 @@ function Pricing() {
     'Priority generation queue',
     'Team-wide Concept Pack templates'],
 
-    cta: 'Start 7-day trial',
+    cta: 'Start 30-day trial',
     href: '#access',
     highlight: false
   },
@@ -716,7 +728,7 @@ function Pricing() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 min-[900px]:grid-cols-4 gap-5 md:gap-6 fade-up items-stretch">
+        <div className="grid grid-cols-1 min-[1100px]:grid-cols-5 gap-5 md:gap-6 fade-up items-stretch">
           {tiers.map((t) =>
         <div key={t.name}
         className="pricing-card relative flex flex-col p-8"
@@ -733,14 +745,21 @@ function Pricing() {
                   {t.tag}
                 </div>
           }
-              {!t.tag && <div className="mb-5 label mute-2" style={{ letterSpacing: '0.22em' }}>—</div>}
+              {/* Spacer, so the untagged tiers keep their heading level with the tagged
+                  ones. A non-breaking space rather than the em-dash it used to hold:
+                  the dash reserved the line but read as a stray mark in the card. */}
+              {!t.tag && <div className="mb-5 label" aria-hidden="true">&nbsp;</div>}
 
               <div className="label label-ink" style={{ fontSize: 12, letterSpacing: '0.24em' }}>— {t.name.toUpperCase()} —</div>
 
               <div className="mute mt-4 text-[13px] leading-[1.5] max-w-[30ch] min-h-[40px]">{t.for}</div>
 
-              <div className="mt-8 flex items-baseline gap-2 border-b hairline pb-8">
-                <span className="serif display" style={{ fontSize: 'clamp(40px,3.6vw,56px)', lineHeight: 1, letterSpacing: '-0.03em' }}>{t.price}</span>
+              {/* "Custom" is a word, not a figure: at the price size it is three times
+                  the width of "$59" and pushed "pricing" out of the card once the grid
+                  went to five columns. Word prices step down so the row still fits on
+                  one line; flex-wrap is the backstop at the narrowest card width. */}
+              <div className="mt-8 flex flex-wrap items-baseline gap-2 border-b hairline pb-8">
+                <span className="serif display" style={{ fontSize: /\d/.test(t.price) ? 'clamp(40px,3.6vw,56px)' : 'clamp(28px,2.4vw,38px)', lineHeight: 1, letterSpacing: '-0.03em' }}>{t.price}</span>
                 <span className="mute text-[13px]">{t.per}</span>
               </div>
 
@@ -774,7 +793,7 @@ function Pricing() {
         </div>
 
         <div className="label mute-2 mt-10 text-center fade-up">
-          All paid plans billed monthly or annually (2 months free). Cancel anytime.
+          ALL PAID PLANS BILLED MONTHLY OR ANNUALLY (30 DAYS FREE). CANCEL ANYTIME.
         </div>
       </section>);
 
@@ -790,22 +809,21 @@ function QuickTools() {
   resources.r_exterior_jpg, resources.r_render_png, resources.r_work_png,
   resources.r_sketch_to_visual_png, resources.r_sketch_png, resources.r_interior_2_png];
 
-  const sketch = resources.r_sketch_png;
-  const render = resources.r_render_png;
-
+  // `badge: true` means the artwork already carries its own in/out framing, so the
+  // IN / OUT chips and the gold arrow are left off.
   const tools = [
-  { n: 'Sketch → Visual', d: 'Turn rough sketches into photoreal renders.', in: sketch, out: resources.r_render_png },
-  { n: 'Reference → Visual', d: 'Generate new designs from a reference image.', in: resources.r_interior_3_jpg, out: resources.r_interior_1_png },
-  { n: 'Plan → Visual', d: 'Convert floor plans into 3D interior visuals.', in: resources.r_sketch_to_visual_png, out: resources.r_interior_2_png },
-  { n: 'Image Variations', d: 'Multiple style variations of any image.', in: resources.r_villa_png, out: resources.r_exterior_jpg },
-  { n: 'Different Angles', d: 'Alternative perspectives of your design.', in: resources.r_pavilion_jpg, out: resources.r_villa_png },
-  { n: 'Lighting & Mood', d: 'Explore different lighting scenarios.', in: resources.r_lobby_png, out: resources.r_interior_3_jpg },
-  { n: 'Axonometric View', d: 'Generate isometric or axonometric projections.', in: resources.r_render_png, out: resources.r_sketch_png },
-  { n: 'Image → Elevation', d: 'Convert any image into a flat elevation drawing.', in: resources.r_exterior_jpg, out: resources.r_sketch_to_visual_png },
-  { n: 'Exploded View', d: 'Turn any image into an exploded axonometric.', in: resources.r_villa_png, out: resources.r_sketch_png },
-  { n: 'Moodboard → Visual', d: 'Translate a curated moodboard into a cohesive visualization.', in: resources.r_work_png, out: resources.r_interior_1_png },
-  { n: 'Upscale & Enhance', d: 'Increase resolution and enhance detail.', in: resources.r_interior_2_png, out: resources.r_lobby_png },
-  { n: 'Render → Line Drawing', d: 'Convert rendered visuals into clean architectural line drawings.', in: resources.r_render_png, out: resources.r_sketch_png }];
+  { n: 'Sketch → Visual', d: 'Turn rough sketches into photoreal renders.', img: resources.r_tool_sketch_visual_jpg, badge: true },
+  { n: 'Reference → Visual', d: 'Generate new designs from a reference image.', img: resources.r_tool_reference_visual_jpg },
+  { n: 'Plan → Visual', d: 'Convert floor plans into 3D interior visuals.', img: resources.r_tool_plan_visual_jpg },
+  { n: 'Image Variations', d: 'Multiple style variations of any image.', img: resources.r_tool_image_variations_jpg },
+  { n: 'Different Angles', d: 'Alternative perspectives of your design.', img: resources.r_tool_different_angles_jpg },
+  { n: 'Lighting & Mood', d: 'Explore different lighting scenarios.', img: resources.r_tool_lighting_mood_jpg, badge: true },
+  { n: 'Axonometric View', d: 'Generate isometric or axonometric projections.', img: resources.r_tool_axonometric_view_jpg },
+  { n: 'Image → Elevation', d: 'Convert any image into a flat elevation drawing.', img: resources.r_tool_image_elevation_jpg },
+  { n: 'Exploded View', d: 'Turn any image into an exploded axonometric.', img: resources.r_tool_exploded_view_jpg },
+  { n: 'Moodboard → Visual', d: 'Translate a curated moodboard into a cohesive visualization.', img: resources.r_tool_moodboard_visual_jpg },
+  { n: 'Upscale & Enhance', d: 'Increase resolution and enhance detail.', img: resources.r_tool_upscale_enhance_jpg },
+  { n: 'Render → Line Drawing', d: 'Convert rendered visuals into clean architectural line drawings.', img: resources.r_tool_render_linedrawing_jpg, badge: true }];
 
 
   return (
@@ -823,28 +841,30 @@ function QuickTools() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 fade-up">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
           {tools.map((t, i) =>
-        <div key={i} className="tool-card p-5 flex flex-col"
+        <div key={i} className="tool-card p-5 flex flex-col fade-up"
         style={{
           background: '#141416',
           border: '1px solid rgba(255,255,255,0.08)',
-          borderRadius: 12
+          borderRadius: 12,
+          /* The cards reveal individually rather than as one block, staggered a row
+             at a time — four per row at the widest breakpoint. */
+          transitionDelay: `${Math.floor(i / 4) * 0.1}s`
         }}>
-              <div className="relative grid grid-cols-2 gap-0 overflow-hidden" style={{ borderRadius: 8 }}>
-                <div className="relative aspect-[4/3] overflow-hidden bg-[#0F0F10]">
-                  <img src={t.in} alt="" loading="lazy" className="w-full h-full object-cover" style={{ filter: 'grayscale(0.2) brightness(0.85)' }} />
-                  <span className="absolute top-2 left-2 label" style={{ color: 'var(--gold)', fontSize: 9, letterSpacing: '0.22em', background: 'rgba(10,10,11,0.55)', padding: '2px 6px' }}>IN</span>
-                </div>
-                <div className="relative aspect-[4/3] overflow-hidden bg-[#0F0F10]">
-                  <img src={t.out} alt="" loading="lazy" className="w-full h-full object-cover" />
-                  <span className="absolute top-2 right-2 label" style={{ color: 'var(--gold)', fontSize: 9, letterSpacing: '0.22em', background: 'rgba(10,10,11,0.55)', padding: '2px 6px' }}>OUT</span>
-                </div>
-                {/* gold arrow */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
-            style={{ width: 26, height: 26, borderRadius: 999, background: 'rgba(10,10,11,0.85)', border: '1px solid var(--gold)' }}>
-                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1 5h8M6 2l3 3-3 3" stroke="var(--gold)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                </div>
+              <div className="relative overflow-hidden" style={{ borderRadius: 8 }}>
+                <img src={t.img} alt="" loading="lazy" className="w-full aspect-[16/6] object-cover" />
+                {!t.badge &&
+            <>
+                    <span className="absolute top-2 left-2 label" style={{ color: 'var(--gold)', fontSize: 9, letterSpacing: '0.22em', background: 'rgba(10,10,11,0.55)', padding: '2px 6px' }}>IN</span>
+                    <span className="absolute bottom-2 right-2 label" style={{ color: 'var(--gold)', fontSize: 9, letterSpacing: '0.22em', background: 'rgba(10,10,11,0.55)', padding: '2px 6px' }}>OUT</span>
+                    {/* gold arrow */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
+              style={{ width: 26, height: 26, borderRadius: 999, background: 'rgba(10,10,11,0.85)', border: '1px solid var(--gold)' }}>
+                      <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1 5h8M6 2l3 3-3 3" stroke="var(--gold)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                    </div>
+                  </>
+            }
               </div>
               <div className="mt-4 text-[14px]" style={{ fontWeight: 500, color: 'var(--ink)', letterSpacing: '-0.005em' }}>
                 {t.n}
@@ -892,6 +912,47 @@ function Gallery() {
 }
 
 /* ------------------------------------------------------------------ */
+/*  TESTIMONIALS                                                       */
+/* ------------------------------------------------------------------ */
+function Testimonials() {
+  const quotes = [
+  {
+    name: 'Tala Mokayed',
+    role: 'Interior Architect, USA',
+    text: '"Polvi gives designers what we’re always looking for: time. Its intuitive whiteboard, DNA, and Concept Pack features make it easy to explore ideas, organise references, and turn one concept into multiple design directions."'
+  },
+  {
+    name: 'Alara Ozturk',
+    role: 'Designer, London',
+    text: '"Polvi.ai balances creative exploration with architectural logic. It understands form, spatial relationships, and references in a way that makes rapid iteration feel genuinely useful for real design work."'
+  },
+  {
+    name: 'Jarred Walker',
+    role: 'Designer, Australia',
+    text: '"Polvi AI is now part of our core workflow. Its respect for geometry, combined with sketch-to-visual and rapid axonometric generation, takes us from concept to communicable imagery in a fraction of the time."'
+  }];
+
+  return (
+    <section className="relative max-w-[1440px] mx-auto px-6 md:px-10 pt-[18vh] pb-[18vh]">
+        <h2 className="serif display mb-14 fade-up" style={{ fontSize: 'clamp(34px,5.2vw,76px)', lineHeight: 1.02 }}>
+          Loved by designers <span className="ital gold">worldwide.</span>
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
+          {quotes.map((q, i) =>
+        <div key={i} className="fade-up flex flex-col justify-between gap-10 pt-8" style={{ borderTop: '1px solid var(--line)' }}>
+              <p className="serif ital text-[19px] md:text-[21px] leading-[1.5]" style={{ letterSpacing: '-0.01em' }}>{q.text}</p>
+              <div>
+                <div className="text-[15px]" style={{ color: 'var(--ink)' }}>{q.name}</div>
+                <div className="label mute-2 mt-1">{q.role}</div>
+              </div>
+            </div>
+        )}
+        </div>
+      </section>);
+
+}
+
+/* ------------------------------------------------------------------ */
 /*  CLOSING / REQUEST ACCESS                                           */
 /* ------------------------------------------------------------------ */
 function Closing() {
@@ -912,6 +973,8 @@ function Closing() {
           <div className="mt-14 flex justify-center fade-up">
             <PolviAuthCTA className="btn-cta linky" />
           </div>
+
+          <div className="label mute-2 mt-8 fade-up">30-DAY FREE TRIAL. NO CREDIT CARD REQUIRED.</div>
         </div>
       </section>);
 
@@ -1016,6 +1079,8 @@ function App() {
         <FeatureSections />
         <div className="rule max-w-[1440px] mx-auto" />
         <QuickTools />
+        <div className="rule max-w-[1440px] mx-auto" />
+        <Testimonials />
         <div className="rule max-w-[1440px] mx-auto" />
         <Pricing />
         <div className="rule max-w-[1440px] mx-auto" />
