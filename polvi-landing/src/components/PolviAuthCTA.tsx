@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { polviAuth, type PolviAuthSnapshot } from '../authBridge';
+import { appendRef, trackCtaClick } from '../lib/analytics';
 
 /** Subscribes to the auth bridge and re-renders when the session state settles. */
 export function usePolviAuth(): PolviAuthSnapshot {
@@ -14,6 +15,11 @@ interface PolviAuthCTAProps {
   /** Label shown to a visitor without a session. */
   label?: string;
   arrowClassName?: string;
+  /**
+   * Which CTA this is, for the event log: 'nav', 'hero', 'closing'. Omit to leave
+   * the click untracked.
+   */
+  trackingId?: string;
 }
 
 /**
@@ -30,6 +36,7 @@ export function PolviAuthCTA({
   // Inherits the button's colour by default — an explicitly gold arrow would be
   // invisible against the filled gold .btn-cta.
   arrowClassName = 'arrow',
+  trackingId,
 }: PolviAuthCTAProps) {
   const { state, hasSession, appDashboardUrl, signUpUrl } = usePolviAuth();
 
@@ -47,7 +54,15 @@ export function PolviAuthCTA({
   }
 
   return (
-    <a href={hasSession ? appDashboardUrl : signUpUrl} className={className}>
+    <a
+      // Only the sign-up link carries the ref: a visitor with a session already has
+      // an account, so there is nothing left to attribute.
+      href={hasSession ? appDashboardUrl : appendRef(signUpUrl)}
+      className={className}
+      // Fires alongside the navigation rather than before it: the request is sent
+      // with keepalive, so it survives the page going away and needs no delay here.
+      onClick={trackingId ? () => trackCtaClick(trackingId) : undefined}
+    >
       <span>{hasSession ? 'Go to app' : label}</span>
       {arrow}
     </a>

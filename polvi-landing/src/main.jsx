@@ -16,6 +16,7 @@ import './authBridge';
 
 import { resources } from './resources.js';
 import { PolviAuthCTA } from './components/PolviAuthCTA';
+import { trackView, trackCtaClick } from './lib/analytics';
 
 import './styles/fonts.css';
 import './styles/app.css';
@@ -75,7 +76,7 @@ function Nav() {
     <div className={`nav-bar fixed top-0 left-0 right-0 z-50 ${show ? 'show' : ''}`}>
         <div className="max-w-[1440px] mx-auto px-6 md:px-10 h-14 flex items-center justify-between">
           <Wordmark logoSize={30} />
-          <PolviAuthCTA className="btn-nav linky" />
+          <PolviAuthCTA className="btn-nav linky" trackingId="nav" />
         </div>
       </div>);
 
@@ -202,7 +203,7 @@ function Hero() {
 
               {/* items-start above so the pill hugs its label instead of stretching
                   to the full column width, which flex-col would otherwise do. */}
-              <PolviAuthCTA className="btn-cta btn-cta--wide linky" />
+              <PolviAuthCTA className="btn-cta btn-cta--wide linky" trackingId="hero" />
             </motion.div>
           </div>
 
@@ -774,15 +775,20 @@ function Pricing() {
             )}
               </ul>
 
+              {/* Tracked per tier, so the log shows which plan people reach for and
+                  not just that pricing was clicked. */}
               <div className="mt-auto pt-10">
                 {t.highlight ?
             <a href={t.href}
+            onClick={() => trackCtaClick(`pricing:${t.name.toLowerCase()}`)}
             className="block w-full text-center py-3.5 text-[14px]"
             style={{ background: 'var(--gold)', color: '#0A0A0B', letterSpacing: '-0.005em', fontWeight: 500 }}>
                     {t.cta} →
                   </a> :
 
-            <a href={t.href} className="linky inline-flex items-baseline gap-2 text-[14px]"
+            <a href={t.href}
+            onClick={() => trackCtaClick(`pricing:${t.name.toLowerCase()}`)}
+            className="linky inline-flex items-baseline gap-2 text-[14px]"
             style={{ color: 'var(--ink)', fontWeight: 500 }}>
                     <span>{t.cta}</span> <span className="arrow gold">→</span>
                   </a>
@@ -971,7 +977,7 @@ function Closing() {
               the app, and swaps to "Go to app" for a visitor who is already signed
               in — same behaviour as the nav. */}
           <div className="mt-14 flex justify-center fade-up">
-            <PolviAuthCTA className="btn-cta linky" />
+            <PolviAuthCTA className="btn-cta linky" trackingId="closing" />
           </div>
 
           <div className="label mute-2 mt-8 fade-up">30-DAY FREE TRIAL. NO CREDIT CARD REQUIRED.</div>
@@ -1071,6 +1077,9 @@ function Footer() {
 /* ------------------------------------------------------------------ */
 function App() {
   useReveal();
+  // One view per page load. StrictMode double-invokes effects in dev, but dev runs
+  // on localhost and analytics.ts skips those, so it cannot double-count.
+  useEffect(() => { trackView(); }, []);
   return (
     <div className="relative">
         <Nav />
